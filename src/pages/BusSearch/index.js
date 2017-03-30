@@ -37,7 +37,6 @@ class BusSearch extends React.Component {
 
   next = () => {
     this.props.navigator.push({title: 'Second Scene', index: 1});
-    console.log('next');
   }
 
   state = {
@@ -48,13 +47,13 @@ class BusSearch extends React.Component {
     return (
       <View style={styles.container}>
         <Autocomplete
-         data={this.state.filteredList}
+         data={this.props.value}
          hintText={'From'}
          onChange={this.onChange}
          onSelect={this.onSelect}
         />
         <Autocomplete
-         data={this.state.filteredList}
+         data={this.props.value}
          hintText={'From'}
          onChange={this.onChange}
          onSelect={this.onSelect}

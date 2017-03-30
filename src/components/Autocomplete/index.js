@@ -28,6 +28,7 @@ class Autocomplete extends Component {
   static defaultProps = {
     onChange: null,
     onSelect: null,
+    data: [],
   };
 
   state = {
@@ -61,7 +62,6 @@ class Autocomplete extends Component {
 
 
   renderItem(item) {
-    console.log('item', item);
     return (
       <TouchableHighlight
         style={styles.item}
@@ -80,7 +80,7 @@ class Autocomplete extends Component {
         <ListView
           contentContainerStyle={styles.listContainer}
           dataSource={dataSource}
-          renderRow={(item) => this.renderItem(item.city)}
+          renderRow={(item) => this.renderItem(item)}
           style={styles.list}
         />);
     }
@@ -95,7 +95,6 @@ class Autocomplete extends Component {
       className,
     } = this.props;
 
-    console.log(this.props);
     return (
       <View style={styles.autocomplete} >
         <View style={styles.inputContainer}>
