@@ -11,44 +11,33 @@ const border = {
 };
 
 var styles = React.StyleSheet.create({
- autocomplete: {
-   top: 0,
-   flex: 1,
-},
-field: {
-  flex: 1,
-  fontSize: 12,
-  backgroundColor: '#FFF',
-  alignSelf: 'stretch',
-  color: '#000'
- },
-listContainer: {
-  backgroundColor: '#DADADA'
-},
-list: {
-  backgroundColor: 'white',
-  borderTopWidth: 0,
-  left: 0,
-  top: 0,
-  position: 'absolute',
-  right: 0,
-  zIndex: 999990,
-  shadowColor: "#000000",
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    }
-},
-item: {
-  padding: 5,
-},
-inputContainer: {
-  ...border,
-  marginBottom: 0,
-  height: 40,
-},
+  autocomplete: {
+    position: 'relative',
+  },
+  field: {
+    fontSize: 12,
+    backgroundColor: '#FFF',
+    color: '#000'
+   },
+  listContainer: {
+    backgroundColor: '#DADADA',
+  },
+  list: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 40,
+    zIndex: 2,
+    alignSelf: "stretch"
+  },
+  item: {
+    padding: 5,
+  },
+  inputContainer: {
+    ...border,
+    marginBottom: 0,
+    height: 40,
+  },
 });
 
 module.exports = styles;

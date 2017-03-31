@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import styles from './styles.js';
 import Autocomplete from '../../components/Autocomplete'
 import { loadLocation } from '../../redux/modules/BusSearch/action';
-// import styles from './styles.scss';
 import {
   StyleSheet,
   Text,
@@ -25,14 +25,12 @@ class BusSearch extends React.Component {
     title: 'Bus Search',
   };
 
-  filteredList = ['aa', 'bb', 'cc', 'dd', 'aab', 'aac', 'bbd'];
   onSelect = (value) => {
     console.log(`${value} selected`);
   };
 
   onChange = (value) => {
     this.props.loadLoc();
-    this.setState({filteredList: this.filteredList.filter((listItem) => listItem.includes(value))});
   };
 
   next = () => {
@@ -51,17 +49,19 @@ class BusSearch extends React.Component {
          hintText={'From'}
          onChange={this.onChange}
          onSelect={this.onSelect}
+         style={styles.autoComplete}
         />
         <Autocomplete
          data={this.props.value}
-         hintText={'From'}
+         hintText={'To'}
          onChange={this.onChange}
          onSelect={this.onSelect}
+         style={styles.autoComplete}
         />
         <Button
           onPress={this.next}
           title="Search"
-          color="#841584"
+          color="#40bf80"
           style={styles.button}
         />
       </View>
@@ -71,19 +71,6 @@ class BusSearch extends React.Component {
 
 const Bus = StackNavigator({
   search: { screen: BusSearch },
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    padding: 30,
-    backgroundColor: '#E0FFFF',
-    flexDirection: 'column'
-  },
-  button: {
-    flex:1,
-  }
 });
 
 

@@ -10,8 +10,6 @@ import {
   Button
 } from 'react-native';
 
-import { incrementValue } from '../../redux/modules/test/action';
-
 const { string, func } = PropTypes;
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
@@ -22,7 +20,6 @@ class Autocomplete extends Component {
     hintText: string,
     onSelect: func,
     onChange: func,
-    disabled: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -81,7 +78,6 @@ class Autocomplete extends Component {
           contentContainerStyle={styles.listContainer}
           dataSource={dataSource}
           renderRow={(item) => this.renderItem(item)}
-          style={styles.list}
         />);
     }
     return null;
@@ -91,24 +87,22 @@ class Autocomplete extends Component {
     const {
       hintText,
       query,
-      disabled,
-      className,
+      style,
     } = this.props;
 
     return (
-      <View style={styles.autocomplete} >
+      <View style={[styles.autocomplete, style]} >
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.field}
             ref={(input) => { this.searchInput = input; }}
-            disabled={disabled}
             placeholder={hintText}
             onChangeText={value => this.onChange(value)}
             value={query}
             underlineColorAndroid='transparent'
           />
         </View>
-        <View>
+        <View style={styles.list}>
           {this.renderList()}
         </View>
       </View>
