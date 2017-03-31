@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 import styles from './styles.js';
+import { loadBuses } from '../../redux/modules/BusList/action';
 import {
   Text,
   View,
@@ -7,15 +9,25 @@ import {
 } from 'react-native';
 
 const { string, func } = PropTypes;
+@connect(state => ({
+  buses: state.BusList.buses,
+}),
+{
+  loadBus:loadBuses,
+})
 
 class BusList extends Component {
   static propTypes = {
-    data: PropTypes.array,
+    buses: PropTypes.array,
   };
 
   static defaultProps = {
-    data: [],
+    buses: [],
   };
+
+  componentWillMount() {
+    this.props.loadBus();
+  }
 
   renderItem(item, index) {
     return (
@@ -34,10 +46,10 @@ class BusList extends Component {
 
   renderList() {
     const {
-      data,
+      buses,
     } = this.props;
 
-    if ( data && data.length > 0) {
+    if ( buses && buses.length > 0) {
       return (
         <View style={styles.busList}>
           <View style={styles.listRow}>
@@ -52,7 +64,7 @@ class BusList extends Component {
             </ View>
             <View style={styles.listItem}></ View>
           </View>
-          { data.map((item, index) => this.renderItem(item, index)) }
+          { buses.map((item, index) => this.renderItem(item, index)) }
         </View>
       );
     }

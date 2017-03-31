@@ -1,11 +1,11 @@
-import { INC_VAL } from './action';
+import { FETCH_BUS } from './action';
 
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
-    case 'FETCH_LOC_FULFILLED':
+    case `${FETCH_BUS}_FULFILLED`:
       return {
         ...state,
-        locList: action.result.data,
+        buses: action.result.data,
       };
     default:
       return state;

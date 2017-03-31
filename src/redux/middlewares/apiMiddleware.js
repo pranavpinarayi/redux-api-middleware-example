@@ -1,21 +1,19 @@
 function apiMiddlewareCreator(axios) {
   return ({ dispatch, getState }) => next => action => {
-    console.log('==============pranav===========');
     if (typeof action === 'function') {
       return action(dispatch, getState, axios);
     }
-    const { payload, types, ...rest } = action;
+    const { payload, type, ...rest } = action;
 
     if (!payload) {
       return next(action);
     }
-    const [REQUEST, SUCCESS, FAILURE] = types;
 
-    next({ ...rest, type: REQUEST});
+    next({ ...rest, type: `${type}_PENDING`});
     const actionPromise = payload(axios);
     actionPromise
-      .then(result => next({ ...rest, result, type: SUCCESS, isXHr: false }))
-      .catch(error => next({ ...rest, error, type: FAILURE, isXHr: false }));
+      .then(result => next({ ...rest, result, type: `${type}_FULFILLED` }))
+      .catch(error => next({ ...rest, error, type: `${type}_REJECTED` }));
     return actionPromise;
   };
 }

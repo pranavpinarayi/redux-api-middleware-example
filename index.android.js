@@ -17,31 +17,32 @@
  import logger from 'redux-logger'
  import BusSearch from './src/pages/BusSearch';
  import BusList from './src/pages/BusList';
- import reducer from './src/redux/modules/BusSearch';
+ import reducer from './src/redux/modules';
  import apiMiddleware from './src/redux/middlewares/apiMiddleware';
 
 var mock = new MockAdapter(axios);
  mock.onGet('/locations').reply(200, ['aa', 'bb', 'cc', 'dd', 'aab', 'aac', 'bbd']);
+ mock.onGet('/buses').reply(200, [
+   {
+    'no':'RAC122',
+    'arrival':'11.30',
+    'depart':'2:00'
+   },
+   {
+    'no':'TVP122',
+    'arrival':'12.30',
+    'depart':'2:45'
+   },
+   {
+    'no':'RAC322',
+    'arrival':'2.30',
+    'depart':'12:00'
+   }
+ ]);
 
  const middleware = applyMiddleware(apiMiddleware.withExtraArgument(axios), logger);
  const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), middleware);
- const busArray = [
-      {
-       'no':'RAC122',
-       'arrival':'11.30',
-       'depart':'2:00'
-      },
-      {
-       'no':'TVP122',
-       'arrival':'12.30',
-       'depart':'2:45'
-      },
-      {
-       'no':'RAC322',
-       'arrival':'2.30',
-       'depart':'12:00'
-      }
- ]
+
 export default class Bus extends Component {
   renderScene = (props, navigator)  => {
     switch (props.index) {
@@ -49,7 +50,7 @@ export default class Bus extends Component {
         return <BusSearch navigator={navigator}/>
         break;
       case 1:
-        return <BusList data={busArray} navigator={navigator}/>
+        return <BusList navigator={navigator}/>
         break;
       default:
         return <BusSearch navigator={navigator}/>
@@ -71,9 +72,5 @@ export default class Bus extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-
-});
 
 AppRegistry.registerComponent('Bus', () => Bus);

@@ -15,7 +15,7 @@ import { StackNavigator } from 'react-navigation';
 const { string, func } = PropTypes;
 
 @connect(state => ({
-  value: state.data,
+  locations: state.BusSearch.locList,
 }),
 {
   loadLoc:loadLocation,
@@ -45,14 +45,14 @@ class BusSearch extends React.Component {
     return (
       <View style={styles.container}>
         <Autocomplete
-         data={this.props.value}
+         data={this.props.locations}
          hintText={'From'}
          onChange={this.onChange}
          onSelect={this.onSelect}
          style={styles.autoComplete}
         />
         <Autocomplete
-         data={this.props.value}
+         data={this.props.locations}
          hintText={'To'}
          onChange={this.onChange}
          onSelect={this.onSelect}
