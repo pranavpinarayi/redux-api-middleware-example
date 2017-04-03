@@ -1,1 +1,6 @@
 node_modules/*
+README.md
+__tests__/*
+app.json
+npm-debug.log
+package.json

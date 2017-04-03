@@ -9,16 +9,19 @@ function apiMiddlewareCreator(axios) {
       return next(action);
     }
 
-    next({ ...rest, type: `${type}_PENDING`});
+    next({ ...rest, type: `${type}_PENDING` });
     const actionPromise = payload(axios);
+
     actionPromise
       .then(result => next({ ...rest, result, type: `${type}_FULFILLED` }))
       .catch(error => next({ ...rest, error, type: `${type}_REJECTED` }));
+
     return actionPromise;
   };
 }
 
 const apiMiddleware = apiMiddlewareCreator();
-apiMiddleware.withExtraArgument = apiMiddlewareCreator
+
+apiMiddleware.withExtraArgument = apiMiddlewareCreator;
 
 export default apiMiddleware;

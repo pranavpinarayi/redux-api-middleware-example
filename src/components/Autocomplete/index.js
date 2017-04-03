@@ -1,31 +1,30 @@
 import React, { PropTypes, Component } from 'react';
-import styles from './styles.js';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
   ListView,
   TouchableHighlight,
-  Button
 } from 'react-native';
+import styles from './styles';
 
-const { string, func } = PropTypes;
+const { string, func, arrayOf } = PropTypes;
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 
 class Autocomplete extends Component {
   static propTypes = {
-    data: PropTypes.array,
-    query: string,
-    hintText: string,
+    data: arrayOf(string),
     onSelect: func,
     onChange: func,
+    hintText: string,
+    query: string,
   };
 
   static defaultProps = {
     onChange: null,
     onSelect: null,
     data: [],
+    hintText: '',
   };
 
   state = {
@@ -35,11 +34,13 @@ class Autocomplete extends Component {
 
   componentWillReceiveProps({ data }) {
     const dataSource = this.state.dataSource.cloneWithRows(data);
+
     this.setState({ dataSource });
   }
 
   onChange = (inputValue) => {
     const value = inputValue;
+
     this.props.onChange(value);
     this.setState({
       showList: true,
@@ -47,16 +48,15 @@ class Autocomplete extends Component {
   };
 
   onSelect(item) {
-    this.searchInput.setNativeProps({text: item});
+    this.searchInput.setNativeProps({ text: item });
     this.setState({
       showList: false,
     });
-  };
+  }
 
   onPress() {
     console.log('clicked');
   }
-
 
   renderItem(item) {
     return (
@@ -77,10 +77,11 @@ class Autocomplete extends Component {
         <ListView
           contentContainerStyle={styles.listContainer}
           dataSource={dataSource}
-          renderRow={(item) => this.renderItem(item)}
+          renderRow={item => this.renderItem(item)}
         />);
     }
     return null;
+
   }
 
   render() {

@@ -1,14 +1,12 @@
-'use strict';
-var React = require('react-native');
-import { Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-var styles = React.StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexWrap: 'nowrap',
     padding: 30,
     backgroundColor: '#E0FFFF',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   button: {
     marginTop: 30,
