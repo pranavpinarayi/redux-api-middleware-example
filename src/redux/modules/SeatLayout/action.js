@@ -3,7 +3,7 @@ export function getSeatLayout() {
   return (dispatch) => {
     return dispatch({
       type: FETCH_LAYOUT,
-      payload: axios => axios.get('/layout'),
+      promise: axios => axios.get('/layout'),
     });
   };
 }

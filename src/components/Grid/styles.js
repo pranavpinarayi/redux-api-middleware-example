@@ -27,6 +27,10 @@ const styles = React.StyleSheet.create({
     width: 30,
     height: 30,
   },
+  empyPos: {
+    width: 30,
+    height: 30,
+  },
   row: {
     flexDirection: 'row',
   },

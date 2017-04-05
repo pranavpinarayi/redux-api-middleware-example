@@ -88,11 +88,20 @@ export default class Grid extends Component {
     );
   }
 
-  renderRow(rowArray, index) {
+  renderBlank(){
+    return(
+      <View style={styles.empyPos}/>
+    );
+  }
+
+  renderRow(rowArray, rowindex) {
     return (
-      <View style={styles.row} key={index}>
-      {rowArray && rowArray.map((seat, index) =>
-        this.renderSeat(seat, index)
+      <View style={styles.row} key={rowindex}>
+      {rowArray && rowArray.map((seat, colIndex) =>{
+        if([0,1].includes(rowindex) && colIndex==this.state.seatArray.doorPos)
+          return (<View style={{flexDirection: 'row'}}>{this.renderBlank()}{this.renderSeat(seat, colIndex)}</View>);
+        return this.renderSeat(seat, colIndex);
+      }
       )}
       </View>
     );
