@@ -11,35 +11,16 @@ import {
  Navigator,
 } from 'react-native';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import BusSearch from './src/pages/BusSearch';
 import BusList from './src/pages/BusList';
+import SeatLayout from './src/pages/SeatLayout';
 import reducer from './src/redux/modules';
 import apiMiddleware from './src/redux/middlewares/apiMiddleware';
-
-const mock = new MockAdapter(axios);
-
-mock.onGet('/locations').reply(200, ['aa', 'bb', 'cc', 'dd', 'aab', 'aac', 'bbd']);
-mock.onGet('/buses').reply(200, [
-  {
-    no: 'RAC122',
-    arrival: '11.30',
-    depart: '2:00',
-  },
-  {
-    no: 'TVP122',
-    arrival: '12.30',
-    depart: '2:45',
-  },
-  {
-    no: 'RAC322',
-    arrival: '2.30',
-    depart: '12:00',
-  },
-]);
-
+import mockApi from './src/api/mock';
+mockApi();
 const middleware = applyMiddleware(apiMiddleware.withExtraArgument(axios), logger);
 const store = createStore(reducer, middleware);
 
@@ -50,6 +31,8 @@ export default class Bus extends Component {
         return <BusSearch navigator={navigator} />;
       case 1:
         return <BusList navigator={navigator} />;
+      case 2:
+        return <SeatLayout navigator={navigator} />;
       default:
         return <BusSearch navigator={navigator} />;
     }
@@ -58,12 +41,13 @@ export default class Bus extends Component {
     const routes = [
       { title: 'Search', index: 0 },
       { title: 'Second Scene', index: 1 },
+      { title: 'Second Scene', index: 2 },
     ];
 
     return (
       <Provider key="provider" store={store}>
         <Navigator
-          initialRoute={routes[0]}
+          initialRoute={routes[2]}
           renderScene={this.renderScene}
         />
       </Provider>
