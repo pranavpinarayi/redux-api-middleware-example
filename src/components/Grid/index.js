@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { getSeatLayout } from '../../redux/modules/SeatLayout/action';
 import styles from './styles';
-import { loadBuses } from '../../redux/modules/BusList/action';
 
 const { object, func } = PropTypes;
 const noOfSeats = 2;

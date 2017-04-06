@@ -19,7 +19,7 @@ import reducer from './src/redux/modules';
 import apiMiddleware from  'redux-api-handling-middleware';
 import mockApi from './src/api/mock';
 mockApi();
-const middleware = applyMiddleware(apiMiddleware.withExtraArgument(axios), logger);
+const middleware = applyMiddleware(apiMiddleware.withClient(axios), logger);
 const store = createStore(reducer, middleware);
 
 export default class Bus extends Component {
